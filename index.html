@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Backend Developer</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Inter and Space Mono Fonts from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles to ensure Inter and Space Mono are used as fallbacks */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a202c; /* Dark background */
+            color: #e2e8f0; /* Light text color */
+            overflow-x: hidden; /* Prevent horizontal scroll from animations */
+        }
+        .font-code {
+            font-family: 'Space Mono', monospace; /* Monospace font for code/terminal elements */
+        }
+
+        /* Animated Typing Effect for Header */
+        .typing-effect {
+            position: relative;
+            display: inline-block;
+        }
+        .typing-effect::after {
+            content: '';
+            position: absolute;
+            right: -0.1em;
+            top: 0;
+            width: 0.05em; /* Blinking cursor width */
+            height: 100%;
+            background-color: #e2e8f0; /* Cursor color */
+            animation: blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #e2e8f0; } /* Blinking cursor */
+        }
+
+        /* Terminal Header Styling */
+        .terminal-header {
+            background-color: #2d3748; /* Slightly lighter dark for header */
+            color: #a0aec0; /* Lighter gray for terminal text */
+            padding: 0.5rem 1rem;
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem; /* text-sm */
+            font-family: 'Space Mono', monospace;
+            border-bottom: 1px solid #4a5568; /* Subtle separator */
+        }
+        .terminal-dot {
+            width: 0.75rem;
+            height: 0.75rem;
+            border-radius: 9999px; /* full rounded */
+        }
+
+        /* Section Hover Effect (Glow) */
+        .section-card {
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Initial subtle shadow */
+        }
+        .section-card:hover {
+            transform: translateY(-5px); /* Lift effect */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), 0 0 15px rgba(66, 153, 225, 0.6); /* Larger shadow with blue glow */
+        }
+
+        /* Custom gradient for a subtle modern touch on main container */
+        .gradient-bg {
+            background-image: linear-gradient(to bottom right, #1a202c, #2d3748);
+        }
+
+        /* Simple hover effect for elements that previously had glitch */
+        .simple-hover {
+            position: relative;
+            display: inline-block;
+            transition: all 0.2s ease-in-out; /* Smooth transition for color and transform */
+        }
+
+        .simple-hover:hover {
+            color: #63b3ed; /* A slightly lighter blue on hover */
+            transform: translateY(-2px); /* Slight lift */
+            text-decoration: underline; /* Add underline */
+        }
+    </style>
+</head>
+<body class="antialiased leading-relaxed">
+    <!-- Assembly Canvas Animation -->
+    <canvas id="assemblyCanvas" class="fixed top-0 left-0 w-full h-full -z-20 opacity-10"></canvas>
+
+    <!-- Navigation Menu (Fixed Header) -->
+    <nav class="fixed top-0 left-0 w-full bg-gray-900 bg-opacity-90 z-50 py-4 shadow-xl">
+        <ul class="flex justify-center space-x-4 sm:space-x-8 text-sm sm:text-lg">
+            <li><a href="#about" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-code simple-hover px-2 sm:px-4 py-2 rounded-md">About</a></li>
+            <li><a href="#skills" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-code simple-hover px-2 sm:px-4 py-2 rounded-md">Skills</a></li>
+            <li><a href="#experience" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-code simple-hover px-2 sm:px-4 py-2 rounded-md">Experience</a></li>
+            <li><a href="#projects" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-code simple-hover px-2 sm:px-4 py-2 rounded-md">Projects</a></li>
+            <li><a href="#education" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-code simple-hover px-2 sm:px-4 py-2 rounded-md">Education</a></li>
+            <li><a href="#contact" class="text-gray-300 hover:text-green-400 transition-colors duration-200 font-code simple-hover px-2 sm:px-4 py-2 rounded-md">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 mt-20 relative z-10 gradient-bg rounded-xl shadow-lg border border-gray-700">
+        <!-- Header Section -->
+        <header class="text-center mb-10 mt-8">
+            <!-- Profile Picture -->
+            <img src="https://placehold.co/128x128/334155/E2E8F0?text=Profile" alt="Your Profile Picture" class="w-32 h-32 rounded-full mx-auto mb-6 border-4 border-blue-400 shadow-md transform transition-transform duration-300 hover:scale-105">
+
+            <h1 class="text-5xl sm:text-6xl font-extrabold text-blue-400 mb-2 font-code overflow-hidden whitespace-nowrap border-r-4 border-r-blue-400 pr-1 animate-typing-text" style="animation: typing 3s steps(20, end) 1s forwards, blink-caret 0.75s step-end infinite;">
+                <span class="text-green-400">./</span>AliTls
+            </h1>
+            <p class="text-xl sm:text-2xl text-gray-300 simple-hover">Backend Developer | Linux Enthusiast</p>
+            <div class="mt-4 flex justify-center space-x-6 text-gray-400">
+                <a href="mailto:alirezatl135@gmail.com" class="hover:text-blue-400 transition-colors duration-200" title="Email Me">
+                    <span class="font-code text-sm simple-hover">email</span>
+                </a>
+                <a href="https://linkedin.com/in/yourprofile" target="_blank" class="hover:text-blue-400 transition-colors duration-200" title="LinkedIn Profile">
+                    <span class="font-code text-sm simple-hover">linkedin</span>
+                </a>
+                <a href="https://github.com/yourprofile" target="_blank" class="hover:text-blue-400 transition-colors duration-200" title="GitHub Profile">
+                    <span class="font-code text-sm simple-hover">github</span>
+                </a>
+            </div>
+        </header>
+
+        <!-- About Me Section -->
+        <section id="about" class="bg-gray-800 rounded-xl shadow-lg p-6 mb-10 border border-gray-700 section-card">
+            <div class="terminal-header">
+                <div class="terminal-dot bg-red-500"></div>
+                <div class="terminal-dot bg-yellow-500"></div>
+                <div class="terminal-dot bg-green-500"></div>
+                <span>user@hostname:~$ cat about_me.txt</span>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-b-xl">
+                <h2 class="text-3xl font-bold text-green-400 mb-4">About Me</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    A passionate Backend Developer with a deep-seated love for robust, scalable, and efficient systems. My journey in tech is fueled by the elegance of <span class="text-yellow-400 font-code simple-hover">Java</span>, the versatility of <span class="text-blue-400 font-code simple-hover">Python</span>, and the raw power of <span class="text-red-400 font-code simple-hover">C</span> for low-level programming and compiler design. I thrive in <span class="text-green-400 font-code simple-hover">Linux</span> environments, constantly exploring how to optimize performance and build reliable backend solutions from the metal up. My expertise lies in designing and implementing complex APIs, managing databases, and ensuring seamless integration across various services, with a keen eye on system internals.
+                </p>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="bg-gray-800 rounded-xl shadow-lg p-6 mb-10 border border-gray-700 section-card">
+            <div class="terminal-header">
+                <div class="terminal-dot bg-red-500"></div>
+                <div class="terminal-dot bg-yellow-500"></div>
+                <div class="terminal-dot bg-green-500"></div>
+                <span class="text-green-400">user@hostname:~$</span> <span class="text-blue-400">tmux new -s my_dev_skills</span>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-b-xl font-code text-base">
+                <!-- tmux session wrapper -->
+                <div class="border border-gray-600 rounded-md overflow-hidden">
+                    <!-- Top Row of Panes -->
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <!-- Pane 1: Java -->
+                        <div class="p-3 border-b md:border-r border-gray-600">
+                            <span class="text-green-400">dev@local:~$</span> <span class="text-white">java -version</span><br>
+                            <span class="text-gray-400">openjdk version "17.0.7" 2023-04-18</span><br>
+                            <span class="text-yellow-400">Java Skills:</span>
+                            <ul class="list-none ml-4 text-gray-300">
+                                <li>- Spring Boot</li>
+                                <li>- Microservices</li>
+                                <li>- Concurrency</li>
+                            </ul>
+                        </div>
+                        <!-- Pane 2: Python -->
+                        <div class="p-3 border-b border-gray-600 md:border-b-0">
+                            <span class="text-green-400">dev@local:~$</span> <span class="text-white">python3 --version</span><br>
+                            <span class="text-gray-400">Python 3.10.12</span><br>
+                            <span class="text-yellow-400">Python Skills:</span>
+                            <ul class="list-none ml-4 text-gray-300">
+                                <li>- Django / Flask</li>
+                                <li>- FastAPI</li>
+                                <li>- Web Crawling</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Bottom Row of Panes -->
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <!-- Pane 3: C/C++/Low-Level -->
+                        <div class="p-3 md:border-r border-gray-600">
+                            <span class="text-green-400">dev@local:~$</span> <span class="text-white">gcc --version</span><br>
+                            <span class="text-gray-400">gcc (GCC) 11.4.0</span><br>
+                            <span class="text-yellow-400">Low-Level Skills:</span>
+                            <ul class="list-none ml-4 text-gray-300">
+                                <li>- C / C++</li>
+                                <li>- Compiler Design</li>
+                                <li>- Operating Systems</li>
+                                <li>- Assembly (x86)</li>
+                            </ul>
+                        </div>
+                        <!-- Pane 4: Databases/DevOps -->
+                        <div class="p-3">
+                            <span class="text-green-400">dev@local:~$</span> <span class="text-white">docker --version</span><br>
+                            <span class="text-gray-400">Docker version 24.0.5</span><br>
+                            <span class="text-yellow-400">DevOps & DB Skills:</span>
+                            <ul class="list-none ml-4 text-gray-300">
+                                <li>- PostgreSQL / MySQL</li>
+                                <li>- MongoDB / Redis</li>
+                                <li>- Docker / Kubernetes</li>
+                                <li>- Linux / CI/CD</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="bg-gray-800 rounded-xl shadow-lg p-6 mb-10 border border-gray-700 section-card">
+            <div class="terminal-header">
+                <div class="terminal-dot bg-red-500"></div>
+                <div class="terminal-dot bg-yellow-500"></div>
+                <div class="terminal-dot bg-green-500"></div>
+                <span>user@hostname:~$ cat /var/log/work_history.log</span>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-b-xl">
+                <h2 class="text-3xl font-bold text-green-400 mb-4">Experience</h2>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-400 mb-1">Backend Developer <span class="text-gray-400 text-base">@ Tech Solutions Inc.</span></h3>
+                    <p class="text-gray-500 text-sm mb-2">March 2022 – Present</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-300">
+                        <li>Developed and maintained high-performance microservices using Spring Boot and Java.</li>
+                        <li>Designed and implemented RESTful APIs, ensuring data integrity and security.</li>
+                        <li>Optimized database queries and schemas for PostgreSQL, leading to a 20% performance improvement.</li>
+                        <li>Contributed to CI/CD pipelines, automating deployment processes with Docker.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-400 mb-1">Junior Software Engineer <span class="text-gray-400 text-base">@ Innovate Systems</span></h3>
+                    <p class="text-gray-500 text-sm mb-2">July 2020 – February 2022</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-300">
+                        <li>Assisted in developing Python-based backend services using Django for a data analytics platform.</li>
+                        <li>Implemented new features and fixed bugs, improving system stability and user experience.</li>
+                        <li>Wrote comprehensive unit and integration tests to ensure code quality.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="bg-gray-800 rounded-xl shadow-lg p-6 mb-10 border border-gray-700 section-card">
+            <div class="terminal-header">
+                <div class="terminal-dot bg-red-500"></div>
+                <div class="terminal-dot bg-yellow-500"></div>
+                <div class="terminal-dot bg-green-500"></div>
+                <span>user@hostname:~$ git log --stat /home/user/projects/</span>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-b-xl">
+                <h2 class="text-3xl font-bold text-green-400 mb-4">Projects</h2>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-400 mb-1">Distributed Task Queue (Java, Kafka, Spring Boot)</h3>
+                    <p class="text-gray-500 text-sm mb-2">A scalable task queue system designed for asynchronous job processing.</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-300">
+                        <li>Implemented producer-consumer model using Apache Kafka for message brokering.</li>
+                        <li>Developed worker services with Spring Boot to process tasks concurrently.</li>
+                        <li>Focused on fault tolerance and message delivery guarantees.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-400 mb-1">Network Packet Analyzer (<span class="text-red-400">C</span>, Linux Sockets)</h3>
+                    <p class="text-gray-500 text-sm mb-2">A command-line tool for capturing and analyzing network packets on Linux.</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-300">
+                        <li>Utilized raw sockets to capture Ethernet frames and IP packets.</li>
+                        <li>Parsed various protocol headers (IP, TCP, UDP) and displayed relevant information.</li>
+                        <li>Focused on low-level network programming and performance.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-400 mb-1">Simple Web Crawler (Python, Scrapy)</h3>
+                    <p class="text-gray-500 text-sm mb-2">A Python-based web crawler for extracting structured data from websites.</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-300">
+                        <li>Built with Scrapy framework, handling requests, parsing HTML, and storing data.</li>
+                        <li>Implemented politeness policies and error handling for robust crawling.</li>
+                    </ul>
+                </div>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-400 mb-1">Custom Toy Compiler (<span class="text-red-400">C</span>, Flex/Bison)</h3>
+                    <p class="text-gray-500 text-sm mb-2">Designed and implemented a small, functional compiler for a subset of a custom language.</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-300">
+                        <li>Developed lexical analyzer (Flex) and parser (Bison) for syntax analysis.</li>
+                        <li>Implemented semantic analysis and intermediate code generation.</li>
+                        <li>Explored various compiler phases and low-level code generation techniques.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="bg-gray-800 rounded-xl shadow-lg p-6 mb-10 border border-gray-700 section-card">
+            <div class="terminal-header">
+                <div class="terminal-dot bg-red-500"></div>
+                <div class="terminal-dot bg-yellow-500"></div>
+                <div class="terminal-dot bg-green-500"></div>
+                <span>user@hostname:~$ history | grep education</span>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-b-xl">
+                <h2 class="text-3xl font-bold text-green-400 mb-4">Education</h2>
+
+                <div class="mb-6">
+                    <h3 class="text-xl font-semibold text-blue-400 mb-1">Master of Science in Computer Science</h3>
+                    <p class="text-gray-400 text-sm mb-2">University Name, City, Country | 2018 – 2020</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-300">
+                        <li>Specialized in Distributed Systems and Operating Systems.</li>
+                        <li>Relevant Coursework: Advanced Algorithms, Network Security, Concurrent Programming, <span class="text-yellow-400">Compiler Construction</span>.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-semibold text-blue-400 mb-1">Bachelor of Engineering in Software Engineering</h3>
+                    <p class="text-gray-400 text-sm mb-2">Another University, City, Country | 2014 – 2018</p>
+                    <ul class="list-disc list-inside ml-4 text-gray-300">
+                        <li>Focused on core software development principles and practices.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="bg-gray-800 rounded-xl shadow-lg p-6 mb-10 border border-gray-700 section-card">
+            <div class="terminal-header">
+                <div class="terminal-dot bg-red-500"></div>
+                <div class="terminal-dot bg-yellow-500"></div>
+                <div class="terminal-dot bg-green-500"></div>
+                <span>user@hostname:~$ ping your_email@example.com</span>
+            </div>
+            <div class="p-4 bg-gray-900 rounded-b-xl text-center">
+                <h2 class="text-3xl font-bold text-green-400 mb-4">Get In Touch</h2>
+                <p class="text-gray-300 mb-4">
+                    Feel free to reach out if you'd like to collaborate or just connect! My digital door is always open for discussions on low-level optimization, compiler magic, or just a good old Linux chat.
+                </p>
+                <p class="text-xl text-blue-400 mb-2 font-code simple-hover">
+                    <a href="mailto:your_email@example.com" class="hover:underline">your_email@example.com</a>
+                </p>
+                <div class="flex justify-center space-x-6 text-gray-400 mt-4">
+                    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="hover:text-blue-400 transition-colors duration-200">
+                        <span class="font-code text-lg simple-hover">LinkedIn</span>
+                    </a>
+                    <a href="https://github.com/yourprofile" target="_blank" class="hover:text-blue-400 transition-colors duration-200">
+                        <span class="font-code text-lg simple-hover">GitHub</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 text-sm mt-10 pb-8">
+            <p>&copy; 2025 Your Name. All rights reserved. <span class="font-code">Built with <span class="text-red-500">&hearts;</span> and <span class="text-yellow-400">Tailwind CSS</span> on <span class="text-green-400">Linux</span>.</span></p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Assembly Code Rain Animation
+        const canvas = document.getElementById('assemblyCanvas');
+        const ctx = canvas.getContext('2d');
+
+        let cw, ch;
+        let columns = [];
+        let fontSize = 18;
+        const hexChars = '0123456789ABCDEF';
+        const columnSpacing = 30; // Spacing between columns of hex characters
+
+        function initCanvas() {
+            cw = window.innerWidth;
+            ch = window.innerHeight;
+            canvas.width = cw;
+            canvas.height = ch;
+
+            columns = [];
+            // Create columns based on window width and desired spacing
+            for (let x = 0; x < cw; x += columnSpacing) {
+                columns.push({
+                    x: x,
+                    y: 0, // Start at the top
+                    speed: 5 + Math.random() * 5 // Randomize speed for each column
+                });
+            }
+        }
+
+        function drawHexRain() {
+            // Semi-transparent background for a "fade" effect of old characters
+            ctx.fillStyle = 'rgba(26, 32, 44, 0.08)';
+            ctx.fillRect(0, 0, cw, ch);
+
+            ctx.fillStyle = '#0F0'; // Green text color for hex characters
+            ctx.font = `${fontSize}px 'Space Mono', monospace`;
+
+            for (let i = 0; i < columns.length; i++) {
+                const col = columns[i];
+                // Pick a random hexadecimal character
+                const char = hexChars.charAt(Math.floor(Math.random() * hexChars.length));
+                ctx.fillText(char, col.x, col.y);
+
+                // Move the column's Y position down
+                col.y += col.speed;
+
+                // If the column goes off the screen, reset it to the top randomly
+                if (col.y > ch && Math.random() > 0.97) { // Random reset to create gaps and vary density
+                    col.y = 0;
+                }
+            }
+            // Request the next animation frame
+            requestAnimationFrame(drawHexRain);
+        }
+
+        // Initialize canvas on window resize
+        window.addEventListener('resize', initCanvas);
+
+        // Start animation once the window is loaded
+        window.onload = function() {
+            initCanvas();
+            drawHexRain();
+        };
+    </script>
+</body>
+</html>
+
